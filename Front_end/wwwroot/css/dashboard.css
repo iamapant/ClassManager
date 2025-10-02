@@ -1,0 +1,215 @@
+﻿#top-students-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.student-card {
+    width: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.first-place {
+    background-color: gold;
+    color: white;
+    transform: scale(1.2);
+}
+
+    .first-place .student-avatar {
+        background: url(../img/gold_medal.png);
+        background-size: cover;
+        margin-left: 2px;
+    }
+
+.second-place {
+    background-color: silver;
+    color: black;
+}
+
+    .second-place .student-avatar {
+        background: url(../img/silver_medal.png);
+        background-size: cover;
+        margin-left: 2px;
+    }
+
+.third-place {
+    background-color: rgba(205, 127, 50, 1);
+    color: white;
+}
+
+    .third-place .student-avatar {
+        background: url(../img/bronze_medal.png);
+        background-size: cover;
+        margin-left: 2px;
+    }
+
+.student-avatar {
+    margin-bottom: 10px;
+    width: 50px;
+    height: 60px;
+}
+
+.student-info h4 {
+    margin: 0;
+}
+
+.grid-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.grid-item {
+    flex: 1 1 30%;
+    margin: 10px;
+}
+
+.box-content {
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fafbff;
+    border-radius: 8px;
+    text-align: center;
+}
+
+    .box-content a {
+        text-decoration: none;
+    }
+
+        .box-content a:hover {
+            text-decoration: underline;
+        }
+
+.circular-progress {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 20px;
+}
+
+.progress-ring {
+    transform: rotate(0deg);
+    position: relative;
+    z-index: 1;
+}
+
+.progress-ring__circle {
+    transition: 0.35s stroke-dasharray;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}
+
+.progress-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+.progress-ring__circle {
+    stroke-dasharray: 283;
+    stroke-dashoffset: calc(283 - (283 * 0) / 100);
+}
+
+#gradient {
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: -1;
+}
+
+svg defs {
+    z-index: -1;
+}
+
+table {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fafbff;
+}
+
+    table thead {
+        background-color: lightblue;
+    }
+
+    table td {
+        text-align: center;
+    }
+
+    table thead td {
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+@media (max-width: 768px) {
+    .grid-item {
+        flex: 1 1 45%;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-item {
+        flex: 1 1 100%;
+    }
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    color: white;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 9999; 
+}
+
+.spinner {
+    border: 8px solid rgba(0, 0, 0, 0.1);
+    border-left: 8px solid white;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    animation: spin 2s linear infinite;
+    margin-bottom: 10px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.skeleton {
+    background-color: #e2e5e7 !important;
+    background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%) !important;
+    background-size: 40px 100%;
+    background-repeat: no-repeat;
+    background-position: left -40px top 0;
+    animation: shine 1s ease infinite;
+}
+
+@keyframes shine {
+    to {
+        background-position: right -40px top 0;
+    }
+}

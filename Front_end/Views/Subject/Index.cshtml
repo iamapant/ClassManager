@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Subjects";
+}
+<link rel="stylesheet" href="~/css/subject.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<h1>@ViewData["Title"]</h1>
+
+<!-- Table for displaying subjects -->
+<table class="table table-bordered mt-3" id="subjects-table">
+    <thead>
+        <tr>
+            <th>Subject ID</th>
+            <th>Subject Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data will be inserted here by JavaScript -->
+    </tbody>
+</table>
+
+<!-- Add/Edit Form -->
+<div id="subject-form-container" class="mt-3">
+    <h3 id="form-title">Add Subject</h3>
+    <form id="subject-form">
+        <div class="form-group">
+            <label for="subjectName">Subject Name</label>
+            <input type="text" id="subjectName" name="subjectName" class="form-control" required />
+        </div>
+        <input type="hidden" id="subjectId" name="subjectId" />
+        <button type="submit" id="submit-btn" class="btn btn-primary">Add Subject</button>
+    </form>
+</div>
+
+<script src="~/js/subject.js"></script>

@@ -1,0 +1,146 @@
+﻿﻿
+@model Front_end.Controllers.CreateEditEvaluationDTO
+  <style>
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            margin-left: 10px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+    </style>
+<h2>Create Evaluation</h2>
+<link rel="stylesheet" href="~/css/register.css" />
+<form id="create-evaluation-form">
+    <div class="form-group">
+        <label>Grade</label>
+        <input name="Grade" placeholder="Input grade" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Subject</label>
+        <select name="Subject" class="form-control" asp-items="@(new SelectList(Model.Subjects, "SubjectName", "SubjectName"))"></select>
+    </div>
+    <div class="form-group">
+        <label>Student</label>
+        <select name="StudentId" class="form-control" asp-items="@(new SelectList(Model.Students, "StudentId", "Name"))"></select>
+
+    </div>
+    <div class="form-group">
+        <button id="submit-btn" type="button" class="btn btn-primary">Create</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Back to List</a>
+    </div>
+</form>
+<div class="overlay" id="loading-overlay">
+    <div class="spinner"></div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#submit-btn").click(function (e) {
+            console.log("clicked");
+
+            const data = {
+                grade: $("input[name='Grade']").val(),
+                additionExplanation: $("select[name='Subject']").val(), 
+                studentId: $("select[name='StudentId']").val()
+            };
+
+            console.log(data.additionExplanation); 
+
+            $("#loading-overlay").css('display', 'flex');
+            const jwtToken = getCookie("JwtToken");
+
+            $.ajax({
+                url: 'http://localhost:5224/api/Evaluations',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', `Bearer ${jwtToken}`);
+                },
+                success: function (response) {
+                    $("#loading-overlay").hide();
+                    window.location.href = 'http://localhost:5050/Evaluation';
+                },
+                error: function (xhr, status, error) {
+                    let errorMessage = 'An error occurred.';
+
+                    try {
+                        const responseJson = JSON.parse(xhr.responseText);
+                        if (responseJson.errors) {
+                            let formattedErrors = `Error Code: ${responseJson.status}\n`;
+                            for (const [key, messages] of Object.entries(responseJson.errors)) {
+                                formattedErrors += `${key}: \n${messages.join('\n')} \n`;
+                            }
+                            errorMessage = formattedErrors.trim();
+                        } else if (responseJson.title) {
+                            errorMessage = `${responseJson.title}: ${responseJson.detail || 'No details provided'}`;
+                        } else {
+                            errorMessage = `Error: ${xhr.responseText}`;
+                        }
+                    } catch (e) {
+                        errorMessage = `Error: ${xhr.responseText}`;
+                    }
+                    $("#loading-overlay").hide();
+                    alert(errorMessage);
+                }
+            });
+        });
+    });
+</script>

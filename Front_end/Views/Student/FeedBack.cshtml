@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Add Feedback";
+}
+
+<h2>Add Feedback for Student @ViewBag.StudentId and Class @ViewBag.ClassId</h2>
+
+<form method="post">
+    <input type="hidden" name="studentId" value="@ViewBag.StudentId" />
+    <input type="hidden" name="classId" value="@ViewBag.ClassId" />
+
+    <div class="form-group">
+        <label for="Rating">Rating</label>
+        <input id="Rating" name="rating" type="number" min="1" max="5" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="FeedbackText">Feedback Text</label>
+        <textarea id="FeedbackText" name="feedbackText" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}

@@ -1,0 +1,98 @@
+﻿@page
+@using Front_end.Pages
+@model LoginModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_Layout";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 rounded">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Login</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post">
+                        <div class="form-group">
+                            <label asp-for="Input.Email" class="control-label"></label>
+                            <input asp-for="Input.Email" class="form-control" placeholder="Enter your email" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label asp-for="Input.Password" class="control-label"></label>
+                            <input asp-for="Input.Password" class="form-control" placeholder="Enter your password" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-4">
+                            <input type="submit" value="Login" class="btn btn-primary w-100" />
+                        </div>
+                    </form>
+                    <div class="form-group mt-3 d-flex justify-content-between">
+                        <a href="/Authentication/Register" class="btn btn-secondary">Register</a>
+                        <a asp-page="/Users/ForgetPassword" class="btn btn-link">Forgot Password?</a>
+                    </div>
+
+                    @if (Model.Errors != null && Model.Errors.Any())
+                    {
+                        <div class="alert alert-danger mt-3">
+                            @foreach (var error in Model.Errors)
+                            {
+                                <p>@error</p>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function getRefreshToken() {
+        return getCookie('RefreshToken');
+    }
+
+    async function refreshToken() {
+        const refreshToken = getRefreshToken();
+        if (!refreshToken) {
+            window.location.href = '/Login';
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:5224/api/Authentication/RefreshToken', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ Token: getCookie('JwtToken'), RefreshToken: refreshToken })
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                if (result.Result) {
+                    document.cookie = JwtToken = ${ result.Token }; expires = ${ new Date(Date.now() + 60 * 60 * 1000).toUTCString() }; path = /;
+                    document.cookie = RefreshToken = ${ result.RefreshToken }; expires = ${ new Date(Date.now() + 6 * 30 * 24 * 60 * 60 * 1000).toUTCString() }; path = /;
+                } else {
+                    window.location.href = '/Login';
+                }
+            } else {
+                console.error('Failed to refresh token');
+                window.location.href = '/Login';
+            }
+        } catch (error) {
+            console.error('Error refreshing token:', error);
+            window.location.href = '/Login';
+        }
+    }
+
+    function checkTokenExpiration() {
+        const token = getCookie('JwtToken');
+        // Token expiration logic here
+    }
+
+    setInterval(checkTokenExpiration, 5 * 60 * 1000);
+</script>

@@ -1,0 +1,36 @@
+﻿@model List<DBfirst.Data.DTOs.ClassDTO>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Class ID</th>
+            <th>Class Name</th>
+            <th>Teacher ID</th>
+            <th>Subject ID</th>
+            <th>FeedBack</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var cls in Model)
+            {
+                <tr>
+                    <td>@cls.ClassId</td>
+                    <td>@cls.ClassName</td>
+                    <td>@cls.TeacherId</td>
+                    <td>@cls.SubjectId</td>
+                    <td>
+                        <a href="@Url.Action("FeedBack", "Student", new { studentId = ViewBag.StudentId, classId = cls.ClassId })">FeedBack</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">No classes found for this student.</td>
+            </tr>
+        }
+    </tbody>
+</table>

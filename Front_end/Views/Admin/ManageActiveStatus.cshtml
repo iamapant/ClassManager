@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "Manage User Active Status";
+}
+    <style>
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #007bff;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        button {
+        background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #007bff;
+        }
+
+        media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            table th, table td {
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+<h1>@ViewData["Title"]</h1>
+
+<table id="userTable" border="1">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Is Active</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Rows will be dynamically added here by JavaScript -->
+    </tbody>
+</table>
+
+<!-- Include the JavaScript file -->
+<script src="~/js/client.js"></script>

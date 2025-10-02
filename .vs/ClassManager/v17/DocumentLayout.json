@@ -1,0 +1,92 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Projects\\Group1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{48ADAF6F-9B3D-4E92-B3D7-D042E1F5A972}|DBfirst\\DBfirst.csproj|e:\\projects\\group1\\dbfirst\\dbfirst.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{48ADAF6F-9B3D-4E92-B3D7-D042E1F5A972}|DBfirst\\DBfirst.csproj|solutionrelative:dbfirst\\dbfirst.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48ADAF6F-9B3D-4E92-B3D7-D042E1F5A972}|DBfirst\\DBfirst.csproj|e:\\projects\\group1\\dbfirst\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48ADAF6F-9B3D-4E92-B3D7-D042E1F5A972}|DBfirst\\DBfirst.csproj|solutionrelative:dbfirst\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48ADAF6F-9B3D-4E92-B3D7-D042E1F5A972}|DBfirst\\DBfirst.csproj|e:\\projects\\group1\\dbfirst\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48ADAF6F-9B3D-4E92-B3D7-D042E1F5A972}|DBfirst\\DBfirst.csproj|solutionrelative:dbfirst\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48ADAF6F-9B3D-4E92-B3D7-D042E1F5A972}|DBfirst\\DBfirst.csproj|e:\\projects\\group1\\dbfirst\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48ADAF6F-9B3D-4E92-B3D7-D042E1F5A972}|DBfirst\\DBfirst.csproj|solutionrelative:dbfirst\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DBfirst",
+              "DocumentMoniker": "E:\\Projects\\Group1\\DBfirst\\DBfirst.csproj",
+              "RelativeDocumentMoniker": "DBfirst\\DBfirst.csproj",
+              "ToolTip": "E:\\Projects\\Group1\\DBfirst\\DBfirst.csproj",
+              "RelativeToolTip": "DBfirst\\DBfirst.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-02T08:09:21.806Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\Projects\\Group1\\DBfirst\\Program.cs",
+              "RelativeDocumentMoniker": "DBfirst\\Program.cs",
+              "ToolTip": "E:\\Projects\\Group1\\DBfirst\\Program.cs",
+              "RelativeToolTip": "DBfirst\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-02T08:09:17.794Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "E:\\Projects\\Group1\\DBfirst\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "DBfirst\\Controllers\\AdminController.cs",
+              "ToolTip": "E:\\Projects\\Group1\\DBfirst\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "DBfirst\\Controllers\\AdminController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-02T08:08:49.755Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DashboardController.cs",
+              "DocumentMoniker": "E:\\Projects\\Group1\\DBfirst\\Controllers\\DashboardController.cs",
+              "RelativeDocumentMoniker": "DBfirst\\Controllers\\DashboardController.cs",
+              "ToolTip": "E:\\Projects\\Group1\\DBfirst\\Controllers\\DashboardController.cs",
+              "RelativeToolTip": "DBfirst\\Controllers\\DashboardController.cs",
+              "ViewState": "AgIAAFcAAAAAAAAAAAASwGAAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-02T08:00:52.213Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

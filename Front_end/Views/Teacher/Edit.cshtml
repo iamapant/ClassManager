@@ -1,0 +1,79 @@
+﻿﻿
+@model Front_end.Controllers.TeacherViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+<h2>Edit Teachers</h2>
+<link rel="stylesheet" href="~/css/register.css" />
+<form id="edit-teacher-form">
+    <div class="form-group">
+        <label>Name</label>
+        <input name="Name" value="@Model.Teacher.Name" placeholder="Input teacher name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Age</label>
+        <input name="Age" value="@Model.Teacher.Age" type="number" placeholder="Input teacher age" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Subject</label>
+        <select name="Subject" class="form-control" asp-for="@Model.Teacher.SubjectId" asp-items="@(new SelectList(Model.Subjects, "SubjectId", "SubjectName"))"></select>
+    </div>
+    <div class="form-group">
+        <button id="submit-btn" type="button" class="btn btn-primary">Save Changes</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Back to List</a>
+    </div>
+</form>
+<div class="overlay" id="loading-overlay">
+    <div class="spinner"></div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#submit-btn").click(function (e) {
+            const currentUrl = window.location.href;
+            const teacherId = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
+            const data = {
+                name: $("input[name='Name']").val(),
+                age: $("input[name='Age']").val(),
+                subjectId: $("select[name='Subject']").val()
+            };
+
+            console.log(data.additionExplanation);
+
+            $("#loading-overlay").css('display', 'flex');
+
+            $.ajax({
+                url: `http://localhost:5224/api/Teachers/edit/${teacherId}`,
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function (response) {
+                    $("#loading-overlay").hide();
+                    window.location.href = '@Url.Action("Index")';
+                },
+                error: function (xhr, status, error) {
+                    let errorMessage = 'An error occurred.';
+
+                    try {
+                        const responseJson = JSON.parse(xhr.responseText);
+                        if (responseJson.errors) {
+                            let formattedErrors = `Error Code: ${responseJson.status}\n`;
+                            for (const [key, messages] of Object.entries(responseJson.errors)) {
+                                formattedErrors += `${key}: \n${messages.join('\n')} \n`;
+                            }
+                            errorMessage = formattedErrors.trim();
+                        } else if (responseJson.title) {
+                            errorMessage = `${responseJson.title}: ${responseJson.detail || 'No details provided'}`;
+                        } else {
+                            errorMessage = `Error: ${xhr.responseText}`;
+                        }
+                    } catch (e) {
+                        errorMessage = `Error: ${xhr.responseText}`;
+                    }
+                    $("#loading-overlay").hide();
+                    alert(errorMessage);
+                }
+            });
+        });
+    });
+</script>

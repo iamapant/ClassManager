@@ -1,0 +1,81 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+<link rel="stylesheet" href="~/css/register.css" />
+
+<div class="register-container">
+    <div class="register-box">
+        <h2>@ViewData["Title"]</h2>
+        <form id="register-form">
+            <div class="form-group">
+                <label>Email</label>
+                <input name="Email" class="form-control" placeholder="Enter your email" />
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input name="Password" type="password" class="form-control" placeholder="Enter your password" />
+            </div>
+
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input name="ConfirmPassword" type="password" class="form-control" placeholder="Confirm your password" />
+            </div>
+
+            <button type="button" id="register-btn" class="btn btn-primary btn-block">Register</button>
+        </form>
+    </div>
+</div>
+<div class="overlay" id="loading-overlay">
+    <div class="spinner"></div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+\<script>
+    $(document).ready(function () {
+        $("#register-btn").click(function (e) {
+            e.preventDefault();
+
+            const data = {
+                Email: $("input[name='Email']").val(),
+                Password: $("input[name='Password']").val(),
+                ConfirmPassword: $("input[name='ConfirmPassword']").val()
+            };
+
+            $("#loading-overlay").css('display', 'flex');
+
+            $.ajax({
+                url: 'http://localhost:5224/api/Authentication/Register',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function (response) {
+                    $("#loading-overlay").hide();
+                    localStorage.setItem('registeredEmail', data.Email);
+                    window.location.href = 'http://localhost:5050/Authentication/Verify';
+                },
+                error: function (xhr, status, error) {
+                    let errorMessage = 'An error occurred.';
+
+                    try {
+                        const responseJson = JSON.parse(xhr.responseText);
+                        if (responseJson.errors) {
+                            let formattedErrors = `Error Code: ${responseJson.status}\n\n`;
+                            for (const [key, messages] of Object.entries(responseJson.errors)) {
+                                formattedErrors += `${key}:\n${messages.join('\n')}\n\n`;
+                            }
+                            errorMessage = formattedErrors.trim();
+                        } else if (responseJson.title) {
+                            errorMessage = `${responseJson.title}: ${responseJson.detail || 'No details provided'}`;
+                        } else {
+                            errorMessage = `Error: ${xhr.responseText}`;
+                        }
+                    } catch (e) {
+                        errorMessage = `Error: ${xhr.responseText}`;
+                    }
+                    $("#loading-overlay").hide();
+                    alert(errorMessage);
+                }
+            });
+        });
+    });
+</script>

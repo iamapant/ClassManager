@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Student Management</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Front_end.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Front_end</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown" style="margin-right:20px">
+                            <a id="userDropdown" class="nav-link dropdown-toggle btn btn-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 5px !important; font-weight:bold; color: #006ce4 !important; padding: 5px 15px">
+                            </a>
+                            <ul id="dropdownMenu" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <!-- Dynamic content will be injected here by JavaScript -->
+                            </ul>
+                        </li>
+
+                        <li id="loginRegisterLinks" class="nav-item" style="display: flex">
+                            <!-- Dynamic content for login/register will be injected here by JavaScript -->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - Front_end - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        function getCookie(name) {
+            const cookieArr = document.cookie.split(";");
+
+            for (let i = 0; i < cookieArr.length; i++) {
+                let cookie = cookieArr[i].trim();
+                if (cookie.startsWith(name + "=")) {
+                    return cookie.substring(name.length + 1);
+                }
+            }
+
+            return null;
+        }
+
+        function parseJwt(token) {
+            let base64Url = token.split('.')[1];
+
+            let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+
+            let jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+
+            return JSON.parse(jsonPayload);
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const jwtToken = getCookie("JwtToken");
+
+            const decodedToken = parseJwt(jwtToken);
+            const userRole = decodedToken.role;
+
+            const userDropdown = document.getElementById('userDropdown');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            const loginRegisterLinks = document.getElementById('loginRegisterLinks');
+
+            if (userRole) {
+                userDropdown.style.display = 'block';
+                userDropdown.innerHTML = `Welcom, ${decodedToken.email}`;
+
+                if (userRole === "Adminstrator") {
+                    dropdownMenu.innerHTML += `<li style="padding: 5px 0"><a class="dropdown-item" href="/Admin/Dashboard"><i style="margin-right: 10px" class="fa-solid fa-user-tie"></i>Dashboard</a></li>`;
+                    dropdownMenu.innerHTML += `<li style="padding: 5px 0"><a class="dropdown-item" href="/Admin/Class"><i style="margin-right: 10px" class="fa-solid fa-user-tie"></i>ManageClass</a></li>`;
+                    dropdownMenu.innerHTML += `<li style="padding: 5px 0"><a class="dropdown-item" href="/Admin"><i style="margin-right: 10px" class="fa-solid fa-user-tie"></i>ManageSubject</a></li>`;
+                    dropdownMenu.innerHTML += `<li style="padding: 5px 0"><a class="dropdown-item" href="/Admin/AddStudentClass"><i style="margin-right: 10px" class="fa-solid fa-user-tie"></i>AddStudentToClass</a></li>`;
+                    dropdownMenu.innerHTML += `<li style="padding: 5px 0"><a class="dropdown-item" href="/Admin/ManageStudent"><i style="margin-right: 10px" class="fa-solid fa-user-tie"></i>ManageStudent</a></li>`;
+                    dropdownMenu.innerHTML += `<li style="padding: 5px 0"><a class="dropdown-item" href="/Admin/ManageActiveStatus"><i style="margin-right: 10px" class="fa-solid fa-user-tie"></i>ManageActiveStatus</a></li>`;
+                }
+                if (userRole === "Teacher") {
+                    dropdownMenu.innerHTML += `<li style="padding: 5px 0"><a class="dropdown-item" href="/Evaluation/Index"><i style="margin-right: 10px" class="fa-solid fa-hotel"></i>Scoring</a></li>`;
+                    dropdownMenu.innerHTML += `<li style="padding: 5px 0"><a class="dropdown-item" href="/Teacher/TeacherPage"><i style="margin-right: 10px" class="fa-solid fa-hotel"></i>Profile</a></li>`;
+                }
+                if (userRole === "Student") {
+                    dropdownMenu.innerHTML += `<li style="padding: 5px 0"><a class="dropdown-item" href="/Student/StudentPage"><i style="margin-right: 10px" class="fa-solid fa-hotel"></i>Profile</a></li>`;
+                }
+
+                dropdownMenu.innerHTML += `
+                        <li style="padding: 5px 0">
+                            <a class="dropdown-item" href="#" id="logout-link">
+                                <i style="margin-right: 10px" class="fa-solid fa-arrow-right-from-bracket"></i>Logout
+                            </a>
+                        </li>
+                    `;
+            } else {
+                loginRegisterLinks.innerHTML = `
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-light" style="border-radius: 5px !important; font-weight:bold; color: #006ce4 !important; padding: 5px 15px" href="/Authentication/Register">Sign-in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-light" style="border-radius: 5px !important; font-weight:bold; color: #006ce4 !important; padding: 5px 15px" href="/Users/Login">Login</a>
+                        </li>
+                    `;
+            }
+
+            document.getElementById('logout-link').addEventListener('click', function (event) {
+                event.preventDefault(); 
+
+                document.cookie.split(';').forEach(function (c) {
+                    document.cookie = c.trim().replace(/=.*/, '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/');
+                });
+                userDropdown.style.display = 'none';
+                window.location.href = '../Users/Login';
+            });
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
